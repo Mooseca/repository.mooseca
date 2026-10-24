@@ -81,6 +81,66 @@ def index(folder, names):
                  % (os.path.basename(folder), links))
 
 
+LANDING = """<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mooseca Kodi repository</title>
+<link rel="icon" href="repo/repository.mooseca/icon.png">
+<style>
+  body {{ margin: 0; font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Inter, sans-serif; color: #e9e6ff;
+         background: linear-gradient(160deg, #2e1e6e 0%, #0a081e 70%) fixed; }}
+  main {{ max-width: 860px; margin: 0 auto; padding: 32px 20px 60px; }}
+  .banner {{ width: 100%; border-radius: 14px; box-shadow: 0 10px 40px #0008; }}
+  h2 {{ margin: 40px 0 12px; font-size: 22px; color: #fff; }}
+  .url {{ display: flex; gap: 10px; align-items: center; background: #ffffff12; border: 1px solid #ffffff26;
+          border-radius: 10px; padding: 14px 16px; font: 600 19px ui-monospace, monospace; color: #fff; word-break: break-all; }}
+  .url button {{ margin-left: auto; font: 600 14px system-ui, sans-serif; color: #fff; background: #7c5cff;
+                 border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; }}
+  ol {{ padding-left: 22px; }} li {{ margin: 6px 0; }}
+  b {{ color: #fff; }} code {{ background: #ffffff18; padding: 1px 6px; border-radius: 5px; }}
+  .card {{ display: flex; gap: 18px; align-items: center; background: #ffffff0d; border: 1px solid #ffffff1f;
+           border-radius: 14px; padding: 16px; }}
+  .card img {{ width: 84px; height: 84px; border-radius: 16px; }}
+  .card h3 {{ margin: 0 0 4px; color: #fff; }} .card p {{ margin: 0; color: #c9c3f0; }}
+  .shot {{ width: 100%; border-radius: 12px; margin-top: 14px; }}
+  a {{ color: #b9a8ff; }}
+  .zip {{ display: inline-block; margin-top: 6px; padding: 10px 16px; border-radius: 9px; background: #7c5cff;
+          color: #fff; text-decoration: none; font-weight: 600; }}
+  footer {{ margin-top: 48px; color: #9d96c8; font-size: 14px; }}
+</style></head><body><main>
+<img class="banner" src="docs/banner.png" alt="Mooseca Repository">
+
+<h2>Add this address to Kodi</h2>
+<div class="url"><span id="u">https://mooseca.github.io/repository.mooseca/</span>
+<button onclick="navigator.clipboard.writeText(document.getElementById('u').textContent);this.textContent='Copied'">Copy</button></div>
+
+<h2>Install</h2>
+<ol>
+  <li><b>Settings &rarr; System &rarr; Add-ons</b>: turn on <b>Unknown sources</b>.</li>
+  <li><b>Settings &rarr; File manager &rarr; Add source</b>: choose <code>&lt;None&gt;</code>, enter the address above and name it <code>mooseca</code>.</li>
+  <li><b>Settings &rarr; Add-ons &rarr; Install from zip file &rarr; mooseca</b>: pick <code>{zip}</code>.</li>
+  <li><b>Install from repository &rarr; Mooseca Repository</b>: pick an add-on and <b>Install</b>.</li>
+</ol>
+<p>Kodi then keeps the add-ons up to date by itself. Or download the repository zip and use <i>Install from zip file</i> on it:<br>
+<a class="zip" href="{zip}">{zip}</a></p>
+
+<h2>Add-ons</h2>
+<div class="card"><img src="repo/plugin.video.seerrhub/icon.png" alt="">
+<div><h3>Seerr Hub</h3><p>Search everything, open it in the right streaming app, play it from Plex / Jellyfin / Emby, or request it in Seerr.
+<a href="https://github.com/Mooseca/plugin.video.seerrhub">Read more on GitHub</a></p></div></div>
+<img class="shot" src="docs/trending.jpg" alt="Seerr Hub in Kodi">
+
+<footer>Source: <a href="https://github.com/Mooseca/repository.mooseca">Mooseca/repository.mooseca</a> &middot; MIT license</footer>
+</main></body></html>
+"""
+
+
+def landing(repo_zip):
+    """The page this address opens in a browser. Kodi's file manager reads the same page and only lists links
+    whose text is their own file name, so it sees just the repository zip."""
+    with open(os.path.join(HERE, 'index.html'), 'w') as fh:
+        fh.write(LANDING.format(zip=repo_zip))
+
+
 def main():
     for z in sys.argv[1:]:
         print('added %s %s' % add(z))
@@ -111,7 +171,7 @@ def main():
     with open(os.path.join(DATA, 'addons.xml.md5'), 'w') as fh:
         fh.write(hashlib.md5(body.encode('utf-8')).hexdigest())
     index(DATA, dirs + ['addons.xml', 'addons.xml.md5'])
-    index(HERE, [repo_zip])
+    landing(repo_zip)
     open(os.path.join(HERE, '.nojekyll'), 'w').close()
 
 
