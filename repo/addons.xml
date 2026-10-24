@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+<addon id="plugin.video.seerrhub" name="Seerr Hub" version="2.1.0" provider-name="Mooseca">
+  <requires>
+    <import addon="xbmc.python" version="3.0.1"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="login"/>
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+      <item library="context.py">
+        <label>Watch or request (Seerr Hub)</label>
+        <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)</visible>
+      </item>
+    </menu>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Search everything, open it in the right streaming app, play it from Plex or Jellyfin, or request it in Seerr</summary>
+    <description lang="en_GB">One "watch this" menu for any movie or show. Searches your Seerr / Jellyseerr / Overseerr server, shows where each title streams in your region (JustWatch data) and opens it in the official app on Android TV, plays it from your Plex, Jellyfin or Emby library, or requests it in Seerr. Optionally lets you pick the release yourself through Radarr/Sonarr and start watching while qBittorrent, Transmission or Deluge downloads it, then copies watched / resume points to your media server once the title is imported.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://github.com/Mooseca/plugin.video.seerrhub</source>
+    <website>https://github.com/Mooseca/plugin.video.seerrhub</website>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+      <screenshot>resources/screenshots/trending.jpg</screenshot>
+      <screenshot>resources/screenshots/title-request.jpg</screenshot>
+      <screenshot>resources/screenshots/search.jpg</screenshot>
+    </assets>
+  </extension>
+</addon>
+<addon id="repository.mooseca" name="Mooseca Repository" version="1.0.0" provider-name="Mooseca">
+  <extension point="xbmc.addon.repository" name="Mooseca Repository">
+    <dir>
+      <info compressed="false">https://mooseca.github.io/repository.mooseca/repo/addons.xml</info>
+      <checksum>https://mooseca.github.io/repository.mooseca/repo/addons.xml.md5</checksum>
+      <datadir zip="true">https://mooseca.github.io/repository.mooseca/repo/</datadir>
+      <hashes>sha256</hashes>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Mooseca's Kodi add-ons, including Seerr Hub</summary>
+    <description lang="en_GB">Installs and keeps up to date Mooseca's add-ons: Seerr Hub (search, stream, play from Plex / Jellyfin / Emby, or request in Seerr).</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://github.com/Mooseca/repository.mooseca</source>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
+</addons>

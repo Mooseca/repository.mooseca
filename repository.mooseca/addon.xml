@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.mooseca" name="Mooseca Repository" version="1.0.0" provider-name="Mooseca">
+  <extension point="xbmc.addon.repository" name="Mooseca Repository">
+    <dir>
+      <info compressed="false">https://mooseca.github.io/repository.mooseca/repo/addons.xml</info>
+      <checksum>https://mooseca.github.io/repository.mooseca/repo/addons.xml.md5</checksum>
+      <datadir zip="true">https://mooseca.github.io/repository.mooseca/repo/</datadir>
+      <hashes>sha256</hashes>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Mooseca's Kodi add-ons, including Seerr Hub</summary>
+    <description lang="en_GB">Installs and keeps up to date Mooseca's add-ons: Seerr Hub (search, stream, play from Plex / Jellyfin / Emby, or request in Seerr).</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://github.com/Mooseca/repository.mooseca</source>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+</addon>
